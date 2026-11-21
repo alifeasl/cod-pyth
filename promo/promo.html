@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Motion Promo</title>
+<style>
+@font-face{font-family:Cairo;src:url(fonts/cairo-arabic.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFC,U+200C-200E;}
+@font-face{font-family:Cairo;src:url(fonts/cairo-latin.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0000-00FF,U+2000-206F;}
+:root{--cream:#F7F2EA;--red:#EF4438;--navy:#1E2A46;--yellow:#FFC23C;--teal:#2BB3A3;--ink:#22252E;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:var(--cream);font-family:Cairo,sans-serif;}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--cream);}
+.grid{position:absolute;inset:-40px;background-image:radial-gradient(#d9cfc0 1.4px,transparent 1.5px);background-size:28px 28px;opacity:.7}
+.scene{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+.c{left:50%;transform-origin:center}
+.h1{font-weight:900;color:var(--navy);font-size:46px;line-height:1.25;text-align:center;width:100%;}
+.h2{font-weight:700;color:var(--ink);font-size:24px;text-align:center;width:100%;opacity:.8}
+.hl{color:var(--red)}
+.word{display:inline-block;margin:0 5px;}
+.dot{position:absolute;border-radius:50%}
+.ring{position:absolute;border-radius:50%;border:3px solid var(--navy)}
+.wipe{position:absolute;top:-320px;height:1600px;width:1100px;transform-origin:center}
+.chip{position:absolute;right:40px;height:78px;width:400px;border-radius:22px;background:#fff;box-shadow:0 10px 0 rgba(30,42,70,.12);display:flex;align-items:center;padding:0 18px;gap:16px;font-weight:800;font-size:26px;color:var(--navy)}
+.ico{width:50px;height:50px;border-radius:14px;flex:none;display:flex;align-items:center;justify-content:center}
+.pill{position:absolute;left:50%;width:440px;height:96px;margin-left:-220px;border-radius:28px;background:#fff;box-shadow:0 12px 0 rgba(30,42,70,.13);display:flex;align-items:center;padding:0 18px;gap:18px;overflow:hidden}
+.pill .ico{width:64px;height:64px;border-radius:20px}
+.pill .txt{font-weight:900;font-size:38px;color:var(--navy);direction:ltr;letter-spacing:1px;white-space:nowrap}
+.pill .lbl{position:absolute;top:8px;right:22px;font-size:15px;font-weight:700;color:#8a8f9c}
+.check{display:flex;align-items:center;gap:14px;font-weight:800;font-size:28px;color:var(--navy);position:absolute;right:70px}
+.check i{width:40px;height:40px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid" id="grid"></div>
+
+  <!-- ============ SCENE 1 : عندك مشروع؟ ============ -->
+  <div class="scene" id="s1">
+    <div class="abs h1" id="s1t" style="top:150px"><span class="word">عندك</span><span class="word hl">مشروع؟</span></div>
+    <div class="abs h2" id="s1s" style="top:222px">محل، براند، أو فكرة جديدة…</div>
+    <svg class="abs" id="shop" style="left:70px;top:330px" width="400" height="420" viewBox="0 0 400 420">
+      <g id="ground"><rect x="0" y="380" width="400" height="8" rx="4" fill="#1E2A46"/></g>
+      <g id="bld" style="transform-origin:200px 380px">
+        <rect x="60" y="150" width="280" height="230" rx="10" fill="#1E2A46"/>
+        <rect x="90" y="230" width="100" height="90" rx="6" fill="#FFC23C"/>
+        <rect x="95" y="235" width="42" height="80" fill="#ffd97a"/>
+        <rect x="225" y="230" width="85" height="150" rx="6" fill="#F7F2EA"/>
+        <circle cx="295" cy="310" r="5" fill="#1E2A46"/>
+      </g>
+      <g id="awn" style="transform-origin:200px 160px">
+        <path d="M40 150 L360 150 L345 110 L55 110 Z" fill="#EF4438"/>
+        <path d="M40 150 q20 26 40 0 q20 26 40 0 q20 26 40 0 q20 26 40 0 q20 26 40 0 q20 26 40 0 q20 26 40 0 q20 26 40 0 Z" fill="#EF4438"/>
+        <path d="M80 150 q20 26 40 0 Z M160 150 q20 26 40 0 Z M240 150 q20 26 40 0 Z M320 150 q20 26 40 0Z" fill="#fff"/>
+      </g>
+      <g id="sign" style="transform-origin:200px 70px">
+        <rect x="110" y="40" width="180" height="58" rx="16" fill="#fff" stroke="#1E2A46" stroke-width="5"/>
+        <text x="200" y="82" text-anchor="middle" font-family="Cairo" font-weight="900" font-size="30" fill="#EF4438">مشروعك</text>
+        <rect x="140" y="98" width="6" height="14" fill="#1E2A46"/><rect x="254" y="98" width="6" height="14" fill="#1E2A46"/>
+      </g>
+      <g id="plantL" style="transform-origin:28px 380px">
+        <rect x="10" y="345" width="36" height="35" rx="6" fill="#EF4438"/>
+        <path d="M28 345 C10 300 0 280 6 250 C24 280 30 310 28 345Z" fill="#2BB3A3"/>
+        <path d="M28 345 C40 300 54 285 52 260 C34 285 26 315 28 345Z" fill="#1f8f83"/>
+      </g>
+      <g id="plantR" style="transform-origin:372px 380px">
+        <rect x="354" y="345" width="36" height="35" rx="6" fill="#FFC23C"/>
+        <circle cx="372" cy="318" r="30" fill="#2BB3A3"/><circle cx="360" cy="296" r="18" fill="#1f8f83"/>
+      </g>
+    </svg>
+    <div class="dot" id="s1d1" style="width:22px;height:22px;background:var(--red);left:60px;top:300px"></div>
+    <div class="dot" id="s1d2" style="width:14px;height:14px;background:var(--yellow);left:460px;top:330px"></div>
+    <div class="ring" id="s1d3" style="width:26px;height:26px;left:440px;top:820px"></div>
+    <div class="ring" id="s1d4" style="width:18px;height:18px;left:90px;top:840px"></div>
+  </div>
+
+  <!-- ============ SCENE 2 : يوصل لآلاف الناس ============ -->
+  <div class="scene" id="s2">
+    <div class="abs h1" id="s2t" style="top:96px">تريده <span class="hl">يوصل</span><br>لآلاف الناس؟</div>
+    <div class="abs" id="phone" style="left:150px;top:300px;width:240px;height:470px;border-radius:38px;background:var(--navy);padding:14px">
+      <div style="width:100%;height:100%;border-radius:26px;background:#fff;overflow:hidden;position:relative">
+        <div style="height:44px;display:flex;align-items:center;gap:8px;padding:0 12px;direction:ltr">
+          <div style="width:26px;height:26px;border-radius:50%;background:var(--red)"></div>
+          <div style="width:80px;height:9px;border-radius:5px;background:#d8d8e0"></div>
+        </div>
+        <div id="post" style="height:200px;background:var(--yellow);position:relative;overflow:hidden">
+          <div style="position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px;border-radius:50%;background:var(--red)"></div>
+          <svg style="position:absolute;left:50%;top:50%;margin:-16px 0 0 -12px" width="32" height="32" viewBox="0 0 32 32"><path d="M6 3 L28 16 L6 29Z" fill="#fff"/></svg>
+        </div>
+        <div style="padding:12px;direction:ltr;display:flex;gap:12px;align-items:center">
+          <svg width="28" height="26" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12A5 5 0 0 1 12 6a5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#EF4438"/></svg>
+          <span id="cnt" style="font-weight:900;font-size:24px;color:var(--navy)">0</span>
+        </div>
+        <div style="margin:4px 12px;height:9px;border-radius:5px;background:#e3e3ea"></div>
+        <div style="margin:10px 12px;width:60%;height:9px;border-radius:5px;background:#e3e3ea"></div>
+      </div>
+    </div>
+    <div id="hearts"></div>
+    <div class="abs" id="s2tag" style="left:330px;top:340px;background:var(--red);color:#fff;font-weight:900;font-size:22px;padding:6px 18px;border-radius:30px;transform-origin:left center">+ مشاهدات</div>
+    <div class="abs" id="s2tag2" style="left:40px;top:620px;background:var(--teal);color:#fff;font-weight:900;font-size:22px;padding:6px 18px;border-radius:30px;transform-origin:right center">+ زبائن</div>
+    <div class="abs h2" id="s2s" style="top:820px">والسر؟ <b style="color:var(--red)">فيديو</b> يخطف العين</div>
+  </div>
+
+  <!-- ============ SCENE 3 : الفكرة -> فيديو ============ -->
+  <div class="scene" id="s3">
+    <div class="abs h1" id="s3t" style="top:110px">نحوّل <span class="hl">فكرتك</span></div>
+    <div class="abs h1" id="s3t2" style="top:170px;font-size:40px">لفيديو موشن جرافيك</div>
+    <div class="abs" id="rays" style="left:270px;top:500px;width:0;height:0"></div>
+    <svg class="abs" id="bulb" style="left:170px;top:360px;transform-origin:100px 140px" width="200" height="260" viewBox="0 0 200 260">
+      <circle cx="100" cy="100" r="80" fill="#FFC23C"/>
+      <path d="M60 150 Q100 200 140 150 L130 190 L70 190Z" fill="#FFC23C"/>
+      <path d="M78 120 L92 150 L100 110 L108 150 L122 120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="68" y="192" width="64" height="18" rx="6" fill="#1E2A46"/>
+      <rect x="74" y="214" width="52" height="16" rx="6" fill="#1E2A46"/>
+      <rect x="86" y="234" width="28" height="12" rx="5" fill="#1E2A46"/>
+      <circle cx="70" cy="70" r="14" fill="#fff" opacity=".55"/>
+    </svg>
+    <div class="abs" id="screen" style="left:60px;top:390px;width:420px;height:270px;border-radius:22px;background:var(--red);border:8px solid var(--navy);overflow:hidden">
+      <div style="position:absolute;left:0;right:0;top:0;height:28px;background:var(--navy);display:flex;gap:7px;align-items:center;padding:0 12px;direction:ltr">
+        <i style="width:10px;height:10px;border-radius:50%;background:#EF4438"></i><i style="width:10px;height:10px;border-radius:50%;background:#FFC23C"></i><i style="width:10px;height:10px;border-radius:50%;background:#2BB3A3"></i>
+      </div>
+      <div id="playbtn" style="position:absolute;left:50%;top:55%;width:90px;height:90px;margin:-45px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center">
+        <svg width="38" height="38" viewBox="0 0 32 32"><path d="M8 4 L28 16 L8 28Z" fill="#EF4438"/></svg>
+      </div>
+      <div style="position:absolute;left:18px;right:18px;bottom:16px;height:8px;border-radius:4px;background:rgba(255,255,255,.35)"><div id="prog" style="height:100%;width:0;border-radius:4px;background:#fff"></div></div>
+    </div>
+    <div class="abs" id="s3b1" style="left:40px;top:700px;width:120px;height:80px;border-radius:14px;background:var(--navy)"></div>
+    <div class="abs" id="s3b2" style="left:210px;top:700px;width:120px;height:80px;border-radius:14px;background:var(--yellow)"></div>
+    <div class="abs" id="s3b3" style="left:380px;top:700px;width:120px;height:80px;border-radius:14px;background:var(--teal)"></div>
+    <div class="abs h2" id="s3s" style="top:810px">من السكربت… لحد التسليم ✔</div>
+  </div>
+
+  <!-- ============ SCENE 4 : خدماتنا ============ -->
+  <div class="scene" id="s4">
+    <div class="abs h1" id="s4t" style="top:90px">شنو <span class="hl">نسويلك؟</span></div>
+    <div class="chip" id="c1" style="top:210px"><div class="ico" style="background:var(--red)"><svg width="26" height="26" viewBox="0 0 32 32"><path d="M8 4 L28 16 L8 28Z" fill="#fff"/></svg></div>إعلانات قصيرة للسوشيال</div>
+    <div class="chip" id="c2" style="top:306px"><div class="ico" style="background:var(--yellow)"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 3 L29 10 L16 17 L3 10Z M3 10 V23 L16 30 V17 M29 10 V23 L16 30" fill="none" stroke="#1E2A46" stroke-width="3" stroke-linejoin="round"/></svg></div>شرح منتجات وخدمات</div>
+    <div class="chip" id="c3" style="top:402px"><div class="ico" style="background:var(--teal)"><svg width="28" height="28" viewBox="0 0 32 32"><path d="M16 2 L19.5 12.5 L30 16 L19.5 19.5 L16 30 L12.5 19.5 L2 16 L12.5 12.5Z" fill="#fff"/></svg></div>انترو وتحريك شعارات</div>
+    <div class="chip" id="c4" style="top:498px"><div class="ico" style="background:var(--navy)"><svg width="28" height="28" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="18" rx="3" fill="none" stroke="#fff" stroke-width="3"/><path d="M4 12 H28" stroke="#fff" stroke-width="3"/></svg></div>تصاميم ستوري وريلز</div>
+    <svg class="abs" id="laptop" style="left:50px;top:610px" width="440" height="290" viewBox="0 0 440 290">
+      <rect x="40" y="10" width="360" height="230" rx="16" fill="#1E2A46"/>
+      <rect x="56" y="26" width="328" height="198" rx="8" fill="#F7F2EA"/>
+      <g id="tracks"></g>
+      <rect id="playhead" x="120" y="34" width="4" height="184" fill="#EF4438"/>
+      <path d="M0 246 H440 L420 272 Q416 278 408 278 H32 Q24 278 20 272Z" fill="#2a3a5e"/>
+      <rect x="180" y="246" width="80" height="10" rx="4" fill="#1E2A46"/>
+    </svg>
+  </div>
+
+  <!-- ============ SCENE 5 : صوت + تسليم ============ -->
+  <div class="scene" id="s5">
+    <div class="abs h1" id="s5t" style="top:100px">كلشي <span class="hl">علينا</span></div>
+    <svg class="abs" id="mic" style="left:190px;top:200px;transform-origin:80px 260px" width="160" height="270" viewBox="0 0 160 270">
+      <rect x="40" y="10" width="80" height="140" rx="40" fill="#FFC23C"/>
+      <g stroke="#e0a21f" stroke-width="5" stroke-linecap="round"><path d="M58 40 V120"/><path d="M80 34 V126"/><path d="M102 40 V120"/></g>
+      <path d="M22 110 Q22 180 80 180 Q138 180 138 110" fill="none" stroke="#1E2A46" stroke-width="10" stroke-linecap="round"/>
+      <rect x="74" y="180" width="12" height="50" fill="#1E2A46"/>
+      <rect x="36" y="228" width="88" height="16" rx="8" fill="#1E2A46"/>
+    </svg>
+    <div id="waves"></div>
+    <div class="check" id="k1" style="top:530px"><i><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>سكربت وفكرة إبداعية</div>
+    <div class="check" id="k2" style="top:600px"><i><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>تعليق صوتي احترافي</div>
+    <div class="check" id="k3" style="top:670px"><i><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>تحريك + مونتاج + موسيقى</div>
+    <div class="check" id="k4" style="top:740px"><i style="background:var(--red)"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 12 L10 18 L20 6" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>تسليم سريع وبسعر يناسبك</div>
+  </div>
+
+  <!-- ============ SCENE 6 : تواصل ============ -->
+  <div class="scene" id="s6">
+    <div class="abs" id="blob" style="left:270px;top:250px;width:620px;height:620px;margin:-310px;border-radius:50%;background:var(--red)"></div>
+    <div class="abs h1" id="s6t" style="top:150px;color:#fff;font-size:50px">اطلب فيديوك</div>
+    <div class="abs h1" id="s6t2" style="top:214px;color:var(--yellow);font-size:58px">هسّه!</div>
+    <div class="abs" id="s6sub" style="top:330px;width:100%;text-align:center;font-weight:700;font-size:22px;color:var(--navy)">تواصل ويانا مباشرة</div>
+    <div class="pill" id="p1" style="top:390px">
+      <div class="ico" style="background:var(--teal)"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="#fff"/></svg></div>
+      <div class="txt" id="phoneTxt"></div>
+    </div>
+    <div class="pill" id="p2" style="top:510px">
+      <div class="ico" style="background:linear-gradient(45deg,#FEC053,#F2203E 50%,#B729A8 80%,#5342D6)"><svg width="36" height="36" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5.5" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="#fff" stroke-width="2.2"/><circle cx="17.4" cy="6.6" r="1.3" fill="#fff"/></svg></div>
+      <div class="txt" id="igTxt"></div>
+    </div>
+    <div class="abs" id="s6tags" style="top:650px;width:100%;display:flex;justify-content:center;gap:10px;direction:rtl">
+      <span class="tg" style="background:var(--navy);color:#fff;padding:6px 16px;border-radius:20px;font-weight:800;font-size:19px">موشن جرافيك</span>
+      <span class="tg" style="background:var(--yellow);color:var(--navy);padding:6px 16px;border-radius:20px;font-weight:800;font-size:19px">إعلانات</span>
+      <span class="tg" style="background:var(--teal);color:#fff;padding:6px 16px;border-radius:20px;font-weight:800;font-size:19px">ريلز</span>
+    </div>
+    <div class="abs" id="handBig" style="top:760px;width:100%;text-align:center;font-weight:900;font-size:64px;color:var(--navy);direction:ltr;letter-spacing:2px">@v6_x6</div>
+    <div class="ring" id="s6r1" style="width:30px;height:30px;left:30px;top:640px"></div>
+    <div class="dot" id="s6d1" style="width:18px;height:18px;background:var(--yellow);left:480px;top:620px"></div>
+    <div class="dot" id="s6d2" style="width:14px;height:14px;background:var(--red);left:60px;top:880px"></div>
+  </div>
+
+  <!-- transitions -->
+  <div class="wipe" id="w1" style="background:var(--red)"></div>
+  <div class="wipe" id="w2" style="background:var(--navy)"></div>
+  <div class="wipe" id="w3" style="background:var(--yellow)"></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P = (t,a,b)=>clamp((t-a)/(b-a));
+const eOut = x=>1-Math.pow(1-x,3);
+const eIn = x=>x*x*x;
+const eIO = x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eBack = x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,x)=>a+(b-a)*x;
+
+// scene boundaries
+const S = [0, 3.4, 6.8, 10.3, 13.9, 17.0, 22.0];
+const DURATION = S[S.length-1];
+
+function pop(el,t,start,dur=.5,base=''){
+  const p=P(t,start,start+dur);
+  el.style.opacity = p>0?1:0;
+  el.style.transform = base+` scale(${eBack(p)})`;
+}
+function slide(el,t,start,dur,dx,dy,base=''){
+  const p=eOut(P(t,start,start+dur));
+  el.style.opacity=p;
+  el.style.transform=base+` translate(${(1-p)*dx}px,${(1-p)*dy}px)`;
+}
+function words(el,t,start,gap=.12){
+  [...el.querySelectorAll('.word')].forEach((w,i)=>{
+    const p=P(t,start+i*gap,start+i*gap+.45);
+    w.style.opacity=p>0?1:0;
+    w.style.transform=`translateY(${(1-eOut(p))*40}px) scale(${eBack(p)})`;
+  });
+}
+
+// generate hearts
+const hearts=$('hearts');
+const HN=14, hdata=[];
+for(let i=0;i<HN;i++){
+  const d=document.createElement('div');d.className='abs';
+  const kind=i%3;
+  d.innerHTML = kind===0
+    ? '<svg width="34" height="32" viewBox="0 0 24 22"><path d="M12 21s-9-5.6-9-12A5 5 0 0 1 12 6a5 5 0 0 1 9 3c0 6.4-9 12-9 12z" fill="#EF4438"/></svg>'
+    : kind===1 ? '<svg width="30" height="30" viewBox="0 0 24 24"><path d="M2 10h4v12H2zM8 22h10a2 2 0 0 0 2-1.6l1.8-8A2 2 0 0 0 19.8 10H14l1-5a2 2 0 0 0-3.6-1.4L8 9z" fill="#2BB3A3"/></svg>'
+    : '<svg width="30" height="30" viewBox="0 0 24 24"><path d="M12 2l3 7 7 .6-5.3 4.7 1.6 7.2L12 17.8 5.7 21.5l1.6-7.2L2 9.6 9 9z" fill="#FFC23C"/></svg>';
+  hearts.appendChild(d);
+  hdata.push({el:d,x:120+((i*73)%300),start:4.3+i*.13,sway:(i%2?1:-1)*(10+i*2)});
+}
+// tracks in laptop
+const tracks=$('tracks'), TC=['#EF4438','#FFC23C','#2BB3A3','#1E2A46'];
+const tdata=[];
+for(let r=0;r<4;r++){for(let k=0;k<3;k++){
+  const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
+  const x=70+k*105+(r*23%40), w=60+((r+k)*37%50);
+  rect.setAttribute('x',x);rect.setAttribute('y',50+r*42);rect.setAttribute('height',28);rect.setAttribute('rx',7);rect.setAttribute('fill',TC[r]);
+  tracks.appendChild(rect);tdata.push({rect,w,start:11.3+(r*3+k)*.06});
+}}
+// wave bars
+const waves=$('waves'), wdata=[];
+for(let side of [-1,1]){for(let i=0;i<5;i++){
+  const b=document.createElement('div');b.className='abs';
+  b.style.cssText=`width:12px;border-radius:6px;background:${i%2?'#EF4438':'#1E2A46'};left:${270+side*(110+i*24)-6}px;top:300px;height:20px`;
+  waves.appendChild(b);wdata.push({b,i,side});
+}}
+// rays
+const rays=$('rays'), rdata=[];
+for(let i=0;i<12;i++){const r=document.createElement('div');r.className='abs';
+  r.style.cssText=`width:14px;height:46px;border-radius:7px;background:${i%2?'#FFC23C':'#EF4438'};left:-7px;top:-23px`;
+  rays.appendChild(r);rdata.push(r);}
+
+const PHONE='07830174162', IG='@v6_x6';
+
+function render(t){
+  // background grid drift
+  $('grid').style.transform=`translate(${(t*6)%28}px,${(t*10)%28}px)`;
+  // scene visibility
+  for(let i=1;i<=6;i++) $('s'+i).style.display = (t>=S[i-1]&&t<S[i])?'block':'none';
+
+  // ---------- S1 ----------
+  if(t<S[1]){
+    words($('s1t'),t,.15);
+    slide($('s1s'),t,.7,.5,0,20);
+    const g=eOut(P(t,.3,.7)); $('ground').style.transform=`scaleX(${g})`;$('ground').style.transformOrigin='200px 0';
+    const b=eBack(P(t,.5,1.0)); $('bld').style.transform=`scaleY(${b})`;
+    const a=P(t,.95,1.4); $('awn').style.transform=`translateY(${(1-eBack(a))*-120}px)`; $('awn').style.opacity=a>0?1:0;
+    const s=P(t,1.3,1.8); $('sign').style.transform=`scale(${eBack(s)}) rotate(${Math.sin(t*3)*3*(s)}deg)`;
+    $('plantL').style.transform=`scale(${eBack(P(t,1.5,2.0))})`;
+    $('plantR').style.transform=`scale(${eBack(P(t,1.65,2.15))})`;
+    ['s1d1','s1d2','s1d3','s1d4'].forEach((id,i)=>{pop($(id),t,1.0+i*.15,.4,`translateY(${Math.sin(t*2+i)*8}px)`)});
+    $('shop').style.transform=`scale(${1+t*0.015})`;
+  }
+  // ---------- S2 ----------
+  if(t>=S[1]&&t<S[2]){
+    const lt=t-S[1];
+    $('s2t').style.opacity=1; $('s2t').style.transform=`scale(${eBack(P(lt,.25,.75))})`;
+    slide($('phone'),t,S[1]+.35,.6,0,500);
+    const c=Math.round(eOut(P(t,S[1]+.9,S[1]+2.8))*12500);
+    $('cnt').textContent=c.toLocaleString('en-US');
+    $('post').style.background = `hsl(${42-eOut(P(lt,1,2.5))*0}, 100%, ${62+Math.sin(lt*6)*3}%)`;
+    hdata.forEach(h=>{const p=P(t,h.start,h.start+1.6);
+      h.el.style.opacity = p>0&&p<1 ? (p<.15?p/.15:(1-p)/.85*1.0+.0) : 0;
+      h.el.style.left=(h.x+Math.sin(p*6)*h.sway)+'px';
+      h.el.style.top=(700-eOut(p)*460)+'px';
+      h.el.style.transform=`scale(${.6+eBack(clamp(p*3))*.6})`;});
+    pop($('s2tag'),t,S[1]+1.3,.45); pop($('s2tag2'),t,S[1]+1.6,.45);
+    slide($('s2s'),t,S[1]+2.0,.5,0,30);
+  }
+  // ---------- S3 ----------
+  if(t>=S[2]&&t<S[3]){
+    const lt=t-S[2];
+    pop($('s3t'),t,S[2]+.25,.5); slide($('s3t2'),t,S[2]+.5,.5,0,30);
+    // bulb in, then shrink out
+    const bin=P(lt,.3,.8), bout=P(lt,1.7,2.0);
+    $('bulb').style.opacity = bin>0 && bout<1 ? 1:0;
+    $('bulb').style.transform=`scale(${eBack(bin)*(1-eIn(bout))}) rotate(${Math.sin(lt*5)*4}deg)`;
+    const rp=eBack(P(lt,.6,1.0))*(1-eIn(bout));
+    rdata.forEach((r,i)=>{const a=i*30+lt*25; const rad=125+Math.sin(lt*8+i)*6;
+      r.style.transform=`rotate(${a}deg) translateY(${-rad}px) scale(${rp})`; r.style.opacity=rp>0.01?1:0;});
+    // screen appears
+    const sp=P(lt,1.9,2.4);
+    $('screen').style.opacity=sp>0?1:0;
+    $('screen').style.transform=`scale(${eBack(sp)})`;
+    $('playbtn').style.transform=`scale(${1+Math.sin(lt*8)*.06*(sp)})`;
+    $('prog').style.width=(eIO(P(lt,2.3,3.5))*100)+'%';
+    ['s3b1','s3b2','s3b3'].forEach((id,i)=>slide($(id),t,S[2]+.9+i*.15,.5,0,120));
+    slide($('s3s'),t,S[2]+1.3,.5,0,30);
+  }
+  // ---------- S4 ----------
+  if(t>=S[3]&&t<S[4]){
+    const lt=t-S[3];
+    pop($('s4t'),t,S[3]+.2,.5);
+    ['c1','c2','c3','c4'].forEach((id,i)=>slide($(id),t,S[3]+.5+i*.22,.55,-520,0));
+    slide($('laptop'),t,S[3]+.4,.6,0,400);
+    tdata.forEach(d=>{d.rect.setAttribute('width',Math.max(0,eOut(P(t,d.start,d.start+.5))*d.w));});
+    $('playhead').setAttribute('x',70+((lt*120)%300));
+  }
+  // ---------- S5 ----------
+  if(t>=S[4]&&t<S[5]){
+    const lt=t-S[4];
+    pop($('s5t'),t,S[4]+.2,.5);
+    const mp=P(lt,.35,.85);
+    $('mic').style.opacity=mp>0?1:0;
+    $('mic').style.transform=`scale(${eBack(mp)}) rotate(${Math.sin(lt*4)*5}deg)`;
+    wdata.forEach(w=>{const amp=eOut(P(lt,.7,1.0));
+      const h=20+amp*(60-w.i*9)*(0.55+0.45*Math.abs(Math.sin(lt*9+w.i*1.3)));
+      w.b.style.height=h+'px'; w.b.style.top=(330-h/2)+'px'; w.b.style.opacity=amp;});
+    ['k1','k2','k3','k4'].forEach((id,i)=>slide($(id),t,S[4]+.9+i*.32,.45,60,0));
+  }
+  // ---------- S6 ----------
+  if(t>=S[5]){
+    const lt=t-S[5];
+    const bp=eBack(P(lt,0,.6));
+    $('blob').style.transform=`scale(${bp}) translateY(${Math.sin(lt*1.5)*6}px)`;
+    $('blob').style.borderRadius=`${50+Math.sin(lt*2)*4}% ${50-Math.sin(lt*2)*4}% ${50+Math.cos(lt*2)*5}% ${50-Math.cos(lt*2)*3}%`;
+    pop($('s6t'),t,S[5]+.3,.5); pop($('s6t2'),t,S[5]+.5,.5,`rotate(${-4+Math.sin(lt*3)*2}deg)`);
+    slide($('s6sub'),t,S[5]+.8,.4,0,20);
+    slide($('p1'),t,S[5]+1.0,.5,-480,0); slide($('p2'),t,S[5]+1.3,.5,480,0);
+    const n1=Math.floor(clamp((lt-1.4)/1.1)*PHONE.length);
+    $('phoneTxt').textContent=PHONE.slice(0,n1)+(n1<PHONE.length&&lt>1.4&&Math.floor(lt*6)%2?'|':'');
+    const n2=Math.floor(clamp((lt-1.8)/.7)*IG.length);
+    $('igTxt').textContent=IG.slice(0,n2)+(n2<IG.length&&lt>1.8&&Math.floor(lt*6)%2?'|':'');
+    // highlight pulse
+    const pul=lt>2.8?Math.sin((lt-2.8)*4)*.025:0;
+    $('p1').style.transform+=` scale(${1+pul})`; $('p2').style.transform+=` scale(${1-pul})`;
+    [...$('s6tags').children].forEach((c,i)=>pop(c,t,S[5]+2.2+i*.12,.4));
+    $('s6tags').style.opacity=1;
+    pop($('handBig'),t,S[5]+2.7,.6);
+    pop($('s6r1'),t,S[5]+1.2,.4,`translateY(${Math.sin(lt*2)*10}px)`);
+    pop($('s6d1'),t,S[5]+1.4,.4,`translateY(${Math.cos(lt*2)*10}px)`);
+    pop($('s6d2'),t,S[5]+1.6,.4,`translateY(${Math.sin(lt*2.3)*10}px)`);
+    // final fade
+    $('stage').style.filter='';
+  }
+
+  // ---------- wipes around each boundary ----------
+  const ws=[$('w3'),$('w1'),$('w2')];
+  ws.forEach(w=>w.style.display='none');
+  for(let k=1;k<S.length-1;k++){
+    const b=S[k];
+    if(t>b-.6&&t<b+.6){
+      ws.forEach((w,j)=>{
+        const c=b+(j-1)*.07;
+        const x=lerp(-1500,1500,eIO(P(t,c-.45,c+.45)));
+        w.style.display='block';
+        w.style.left='-280px';
+        w.style.transform=`rotate(${k%2?-18:18}deg) translateX(${(k%2?-1:1)*x}px)`;
+      });
+    }
+  }
+}
+
+window.render=render; window.DURATION=DURATION;
+document.fonts.ready.then(()=>{window.READY=true;});
+// live preview when opened in a browser normally
+if(!navigator.webdriver){const t0=performance.now();(function loop(){render(((performance.now()-t0)/1000)%DURATION);requestAnimationFrame(loop);})();}
+</script>
+</body>
+</html>
