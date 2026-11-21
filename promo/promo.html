@@ -183,7 +183,10 @@ html,body{width:540px;height:960px;overflow:hidden;background:var(--cream);font-
       <span class="tg" style="background:var(--yellow);color:var(--navy);padding:6px 16px;border-radius:20px;font-weight:800;font-size:19px">إعلانات</span>
       <span class="tg" style="background:var(--teal);color:#fff;padding:6px 16px;border-radius:20px;font-weight:800;font-size:19px">ريلز</span>
     </div>
-    <div class="abs" id="handBig" style="top:760px;width:100%;text-align:center;font-weight:900;font-size:64px;color:var(--navy);direction:ltr;letter-spacing:2px">@v6_x6</div>
+    <div class="abs" id="bigLogo" style="left:128px;top:712px;width:284px;height:237px;transform-origin:center">
+      <img src="img/logo.png" style="width:100%;height:100%;filter:drop-shadow(0 6px 6px rgba(30,42,70,.25))">
+      <div id="shine" style="position:absolute;inset:0;-webkit-mask:url(img/logo.png) center/100% 100% no-repeat;mask:url(img/logo.png) center/100% 100% no-repeat;background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.85) 50%,transparent 60%);background-size:300% 100%;background-position:100% 0"></div>
+    </div>
     <div class="ring" id="s6r1" style="width:30px;height:30px;left:30px;top:640px"></div>
     <div class="dot" id="s6d1" style="width:18px;height:18px;background:var(--yellow);left:480px;top:620px"></div>
     <div class="dot" id="s6d2" style="width:14px;height:14px;background:var(--red);left:60px;top:880px"></div>
@@ -193,6 +196,7 @@ html,body{width:540px;height:960px;overflow:hidden;background:var(--cream);font-
   <div class="wipe" id="w1" style="background:var(--red)"></div>
   <div class="wipe" id="w2" style="background:var(--navy)"></div>
   <div class="wipe" id="w3" style="background:var(--yellow)"></div>
+  <img id="wm" src="img/logo.png" style="position:absolute;left:14px;top:14px;width:84px;height:70px;filter:drop-shadow(0 3px 3px rgba(30,42,70,.3))">
 </div>
 
 <script>
@@ -358,7 +362,9 @@ function render(t){
     $('p1').style.transform+=` scale(${1+pul})`; $('p2').style.transform+=` scale(${1-pul})`;
     [...$('s6tags').children].forEach((c,i)=>pop(c,t,S[5]+2.2+i*.12,.4));
     $('s6tags').style.opacity=1;
-    pop($('handBig'),t,S[5]+2.7,.6);
+    pop($('bigLogo'),t,S[5]+2.7,.6,`translateY(${Math.sin(lt*2)*4}px)`);
+    const sh=P(lt,3.4,4.3), sh2=P(lt,4.6,5.0);
+    $('shine').style.backgroundPosition=`${100-eIO(sh)*100}% 0`;
     pop($('s6r1'),t,S[5]+1.2,.4,`translateY(${Math.sin(lt*2)*10}px)`);
     pop($('s6d1'),t,S[5]+1.4,.4,`translateY(${Math.cos(lt*2)*10}px)`);
     pop($('s6d2'),t,S[5]+1.6,.4,`translateY(${Math.sin(lt*2.3)*10}px)`);
@@ -366,6 +372,10 @@ function render(t){
     $('stage').style.filter='';
   }
 
+  // ---------- logo watermark ----------
+  { const a=P(t,.2,.7), out=P(t,S[5]-.1,S[5]+.2);
+    $('wm').style.opacity = a*(1-out);
+    $('wm').style.transform=`scale(${eBack(a)}) rotate(${(1-eOut(a))*-20}deg)`; }
   // ---------- wipes around each boundary ----------
   const ws=[$('w3'),$('w1'),$('w2')];
   ws.forEach(w=>w.style.display='none');
