@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Back To School</title>
+<style>
+@font-face{font-family:Cairo;src:url(fonts/cairo-arabic.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFC,U+200C-200E;}
+@font-face{font-family:Cairo;src:url(fonts/cairo-latin.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0000-00FF,U+2000-206F;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;background:#BFE6FF;font-family:Cairo,sans-serif}
+#stage{position:absolute;inset:0;overflow:hidden}
+.abs{position:absolute}
+.layer{position:absolute;inset:0}
+.title{position:absolute;width:100%;text-align:center;font-weight:900;color:#FF6B2C;-webkit-text-stroke:12px #fff;paint-order:stroke fill;text-shadow:0 7px 0 rgba(0,0,0,.12)}
+.bub{position:absolute;background:#fff;border-radius:26px;padding:10px 22px;font-weight:900;font-size:28px;color:#333A56;white-space:nowrap;box-shadow:0 6px 0 rgba(0,0,0,.08);transform-origin:50% 100%}
+.bub:after{content:"";position:absolute;bottom:-16px;border:10px solid transparent;border-top:16px solid #fff}
+.bub.tl:after{left:30px}.bub.tr:after{right:30px}
+.char{position:absolute;transform-origin:50% 100%}
+.char svg{overflow:visible}
+</style>
+</head>
+<body>
+<div id="stage">
+  <!-- SKY / STREET -->
+  <div class="layer" id="street">
+    <div class="layer" style="background:linear-gradient(#8FD3FF,#D9F1FF 70%)"></div>
+    <svg class="abs" id="sun" style="left:395px;top:20px" width="140" height="140" viewBox="-70 -70 140 140">
+      <g id="sunRays"></g>
+      <circle r="42" fill="#FFD43B"/><circle r="42" fill="url(#sunG)"/>
+      <circle cx="-14" cy="-6" r="5" fill="#7A4B1E"/><circle cx="14" cy="-6" r="5" fill="#7A4B1E"/>
+      <path d="M-15 10 Q0 24 15 10" stroke="#7A4B1E" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <circle cx="-24" cy="8" r="6" fill="#FF9F7A" opacity=".6"/><circle cx="24" cy="8" r="6" fill="#FF9F7A" opacity=".6"/>
+      <defs><radialGradient id="sunG" cx="35%" cy="30%"><stop offset="0" stop-color="#FFF6C2"/><stop offset=".6" stop-color="#FFD43B" stop-opacity="0"/></radialGradient></defs>
+    </svg>
+    <div id="clouds"></div>
+    <div class="layer" id="town"></div>
+    <!-- ground -->
+    <div class="abs" style="left:0;top:700px;width:540px;height:260px;background:linear-gradient(#7ED36B,#5BB64F)"></div>
+    <div class="abs" style="left:0;top:770px;width:540px;height:120px;background:#E9DCC8"></div>
+    <div class="abs" id="tiles" style="left:-60px;top:770px;width:700px;height:120px;background:repeating-linear-gradient(90deg,transparent 0 68px,#D6C6AE 68px 72px)"></div>
+    <div class="abs" style="left:0;top:765px;width:540px;height:8px;background:#CDBB9F"></div>
+  </div>
+
+  <!-- CLASSROOM -->
+  <div class="layer" id="classroom" style="display:none">
+    <div class="layer" style="background:linear-gradient(#FFEFD6,#FFE2BD)"></div>
+    <div class="abs" style="left:0;top:690px;width:540px;height:270px;background:linear-gradient(#D69A5E,#C0834A)"></div>
+    <div class="abs" style="left:0;top:690px;width:540px;height:270px;background:repeating-linear-gradient(90deg,transparent 0 88px,rgba(0,0,0,.08) 88px 92px)"></div>
+    <div class="abs" style="left:30px;top:190px;width:480px;height:270px;border-radius:18px;background:#9C6B3E;padding:12px">
+      <div style="width:100%;height:100%;border-radius:10px;background:radial-gradient(circle at 40% 30%,#3F7A5C,#2C5E45);position:relative;overflow:hidden">
+        <div id="boardA" class="abs" style="top:6px;width:100%;text-align:center;font-weight:900;font-size:76px;color:#F7F3E8;letter-spacing:6px"></div>
+        <div id="boardN" class="abs" style="top:112px;width:100%;text-align:center;font-weight:900;font-size:64px;color:#FFE38A;direction:ltr;letter-spacing:18px"></div>
+        <div id="chalkStar" class="abs" style="left:24px;top:16px;font-size:34px;color:#FFE38A">★</div>
+      </div>
+    </div>
+    <div class="abs" style="left:90px;top:462px;width:360px;height:12px;border-radius:6px;background:#7A5230"></div>
+    <!-- clock -->
+    <svg class="abs" style="left:236px;top:112px" width="68" height="68" viewBox="-34 -34 68 68"><circle r="30" fill="#fff" stroke="#F2853B" stroke-width="6"/><line id="clkM" x1="0" y1="0" x2="0" y2="-20" stroke="#333A56" stroke-width="4" stroke-linecap="round"/><line x1="0" y1="0" x2="12" y2="0" stroke="#333A56" stroke-width="4" stroke-linecap="round"/></svg>
+    <!-- pennants -->
+    <svg class="abs" style="left:0;top:70px" width="540" height="70" viewBox="0 0 540 70"><path d="M0 10 Q270 60 540 10" stroke="#9C6B3E" stroke-width="3" fill="none"/>
+      <g id="flags"></g></svg>
+  </div>
+
+  <!-- PARTY BG -->
+  <div class="layer" id="party" style="display:none">
+    <div class="layer" style="background:#FFD96A"></div>
+    <svg class="abs" id="burst" style="left:-430px;top:-250px" width="1400" height="1400" viewBox="-700 -700 1400 1400"><g id="burstG"></g></svg>
+  </div>
+
+  <!-- SCHOOL building (scrolls in during walk scene) -->
+  <svg class="abs" id="school" style="left:-600px;top:330px;display:none" width="420" height="440" viewBox="0 0 420 440">
+    <rect x="20" y="120" width="380" height="320" rx="10" fill="#FF8A65"/>
+    <rect x="20" y="120" width="380" height="320" rx="10" fill="url(#shade)"/>
+    <path d="M0 130 L210 20 L420 130 Z" fill="#E2533B"/>
+    <rect x="135" y="60" width="150" height="56" rx="14" fill="#fff"/>
+    <text x="210" y="100" text-anchor="middle" font-family="Cairo" font-weight="900" font-size="32" fill="#E2533B">مدرستي</text>
+    <g fill="#BFE6FF" stroke="#fff" stroke-width="6">
+      <rect x="55" y="170" width="70" height="70" rx="8"/><rect x="295" y="170" width="70" height="70" rx="8"/>
+      <rect x="55" y="280" width="70" height="70" rx="8"/><rect x="295" y="280" width="70" height="70" rx="8"/>
+    </g>
+    <rect x="160" y="290" width="100" height="150" rx="50" fill="#7A4B2E"/><rect x="160" y="340" width="100" height="100" fill="#7A4B2E"/>
+    <line x1="210" y1="300" x2="210" y2="440" stroke="#5E3720" stroke-width="4"/>
+    <circle cx="210" cy="215" r="34" fill="#fff" stroke="#E2533B" stroke-width="6"/>
+    <line id="schBell" x1="210" y1="215" x2="210" y2="194" stroke="#333A56" stroke-width="4" stroke-linecap="round"/>
+    <defs><linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#000" stop-opacity=".08"/></linearGradient></defs>
+  </svg>
+
+  <div id="fx"></div>
+  <div id="confetti"></div>
+  <div class="char" id="boy"></div>
+  <div class="char" id="girl"></div>
+
+  <div class="bub tl" id="bub1">صباح الخير!</div>
+  <div class="bub tr" id="bub2">صباح النور! تمشي ويايا؟</div>
+  <div class="bub tl" id="bub3">أكيد! يلا سوا</div>
+  <div class="bub tr" id="bub4">نتعلّم ونلعب سوا!</div>
+  <div class="bub tl" id="bub5">أنا أعرف الجواب!</div>
+
+  <div class="title" id="t1" style="top:150px;font-size:60px">يلا عالمدرسة!</div>
+  <div class="title" id="t3" style="top:150px;font-size:44px">المدرسة بيتنا الثاني</div>
+  <div class="title" id="t5" style="top:170px;font-size:58px;line-height:1.3">يوم دراسي<br>سعيد!</div>
+  <div class="title" id="t5b" style="top:335px;font-size:32px;color:#7B61FF">بالتوفيق يا أبطال</div>
+
+  <svg class="abs" id="iris" style="left:0;top:0;display:none" width="540" height="960"><defs><mask id="irm"><rect width="540" height="960" fill="#fff"/><circle id="irc" cx="270" cy="560" r="600" fill="#000"/></mask></defs><rect width="540" height="960" fill="#7B61FF" mask="url(#irm)"/></svg>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const P=(t,a,b)=>clamp((t-a)/(b-a));
+const eOut=x=>1-Math.pow(1-x,3), eIn=x=>x*x*x, eIO=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eBack=x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+const lerp=(a,b,x)=>a+(b-a)*x;
+let seed=5;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+const S=[0,10,15.5,21,25.5];
+const DURATION=S[S.length-1];
+
+/* ================= CHARACTER RIG ================= */
+const SKIN=`<radialGradient id="PFX_skin" cx="42%" cy="38%" r="70%"><stop offset="0" stop-color="#FFE1C6"/><stop offset=".7" stop-color="#F6BE98"/><stop offset="1" stop-color="#E9A57E"/></radialGradient>`;
+function eyes(p,iris){return `
+  <g id="${p}_eyes">
+   <g transform="translate(78 112)"><ellipse rx="15" ry="18" fill="#fff"/><circle id="${p}_irL" r="11" fill="${iris}"/><circle r="6" fill="#1b1b22"/><circle cx="-4" cy="-6" r="4" fill="#fff"/><circle cx="4" cy="4" r="1.8" fill="#fff"/></g>
+   <g transform="translate(122 112)"><ellipse rx="15" ry="18" fill="#fff"/><circle r="11" fill="${iris}"/><circle r="6" fill="#1b1b22"/><circle cx="-4" cy="-6" r="4" fill="#fff"/><circle cx="4" cy="4" r="1.8" fill="#fff"/></g>
+  </g>`;}
+function arm(p,side,x,y,col,edge,cuff){
+  // side: 'L' (viewer-left) / 'R'
+  return `<g id="${p}_arm${side}" transform="translate(${x} ${y})">
+    <g id="${p}_up${side}">
+      <line x1="0" y1="0" x2="0" y2="50" stroke="${edge}" stroke-width="28" stroke-linecap="round"/>
+      <line x1="0" y1="0" x2="0" y2="50" stroke="${col}" stroke-width="23" stroke-linecap="round"/>
+      <g id="${p}_fo${side}" transform="translate(0 50)">
+        <line x1="0" y1="0" x2="0" y2="40" stroke="${edge}" stroke-width="26" stroke-linecap="round"/>
+        <line x1="0" y1="0" x2="0" y2="40" stroke="${col}" stroke-width="21" stroke-linecap="round"/>
+        ${cuff?`<line x1="0" y1="34" x2="0" y2="42" stroke="${cuff}" stroke-width="22" stroke-linecap="round"/>`:''}
+        <circle cy="52" r="12.5" fill="url(#${p}_skin)" stroke="#E0A07A" stroke-width="1.5"/>
+      </g>
+    </g></g>`;
+}
+function boySVG(){const p='b';return `
+<svg width="200" height="420" viewBox="0 0 200 420">
+ <defs>${SKIN.replace('PFX',p)}
+  <linearGradient id="b_robe" x1="0" x2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".65" stop-color="#F3F5F9"/><stop offset="1" stop-color="#D9DEE8"/></linearGradient>
+  <linearGradient id="b_hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5A3A2B"/><stop offset="1" stop-color="#2E1C14"/></linearGradient>
+  <linearGradient id="b_bag" x1="0" x2="1"><stop offset="0" stop-color="#6FB3DD"/><stop offset="1" stop-color="#3D7FAE"/></linearGradient>
+ </defs>
+ <g id="b_body">
+  <ellipse cx="100" cy="408" rx="62" ry="9" fill="#000" opacity=".12"/>
+  <rect x="38" y="178" width="124" height="120" rx="30" fill="url(#b_bag)"/>
+  <ellipse id="b_shoeL" cx="80" cy="398" rx="21" ry="11" fill="#2F3340"/>
+  <ellipse id="b_shoeR" cx="120" cy="398" rx="21" ry="11" fill="#2F3340"/>
+  <path d="M62 182 Q100 166 138 182 L152 392 Q100 402 48 392 Z" fill="url(#b_robe)" stroke="#CDD4E0" stroke-width="2"/>
+  <path d="M100 196 L100 270" stroke="#D3D9E4" stroke-width="3"/>
+  <circle cx="100" cy="212" r="3" fill="#C9D0DC"/><circle cx="100" cy="232" r="3" fill="#C9D0DC"/><circle cx="100" cy="252" r="3" fill="#C9D0DC"/>
+  <rect x="112" y="214" width="24" height="18" rx="3" fill="none" stroke="#D3D9E4" stroke-width="2.5"/>
+  <path d="M66 184 Q72 210 70 250" stroke="#4F93C2" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <path d="M134 184 Q128 210 130 250" stroke="#4F93C2" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <rect x="88" y="160" width="24" height="22" rx="8" fill="url(#b_skin)"/>
+  <path d="M80 176 Q100 192 120 176 L118 188 Q100 198 82 188Z" fill="#fff" stroke="#CDD4E0" stroke-width="2"/>
+  ${arm(p,'L',62,192,'#FBFCFE','#CDD4E0')}
+  ${arm(p,'R',138,192,'#FBFCFE','#CDD4E0')}
+  <g id="b_head" transform="translate(0 0)">
+   <circle cx="40" cy="116" r="14" fill="url(#b_skin)"/><circle cx="160" cy="116" r="14" fill="url(#b_skin)"/>
+   <ellipse cx="100" cy="106" rx="60" ry="64" fill="url(#b_skin)"/>
+   <path d="M40 104 Q34 38 100 34 Q168 36 162 104 Q158 76 138 66 Q112 80 84 70 Q60 64 52 84 Q44 92 40 104Z" fill="url(#b_hair)"/>
+   <path d="M84 70 Q120 40 150 74 Q120 58 96 78Z" fill="#6B4635"/>
+   <path d="M62 86 Q76 78 90 86" stroke="#3B2419" stroke-width="5" fill="none" stroke-linecap="round"/>
+   <path d="M110 86 Q124 78 138 86" stroke="#3B2419" stroke-width="5" fill="none" stroke-linecap="round"/>
+   ${eyes(p,'#6B3F22')}
+   <path d="M96 128 Q100 134 106 129" stroke="#D48B66" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+   <ellipse cx="66" cy="136" rx="10" ry="6" fill="#FF8C8C" opacity=".45"/><ellipse cx="134" cy="136" rx="10" ry="6" fill="#FF8C8C" opacity=".45"/>
+   <g id="b_mouth" transform="translate(100 146)"><path d="M-17 -2 Q0 4 17 -2 Q14 18 0 18 Q-14 18 -17 -2Z" fill="#8E2F2F"/><path d="M-9 12 Q0 6 9 12 Q6 17 0 17 Q-6 17 -9 12Z" fill="#E86D6D"/><path d="M-14 -1 Q0 4 14 -1 L13 3 Q0 7 -13 3Z" fill="#fff"/></g>
+  </g>
+ </g>
+</svg>`;}
+function girlSVG(){const p='g';return `
+<svg width="200" height="420" viewBox="0 0 200 420">
+ <defs>${SKIN.replace('PFX',p)}
+  <linearGradient id="g_hair" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FBE29A"/><stop offset="1" stop-color="#E0AE55"/></linearGradient>
+  <linearGradient id="g_sw" x1="0" x2="1"><stop offset="0" stop-color="#F0434A"/><stop offset="1" stop-color="#C8252D"/></linearGradient>
+  <linearGradient id="g_boot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B86A3C"/><stop offset="1" stop-color="#8A4B27"/></linearGradient>
+ </defs>
+ <g id="g_body">
+  <ellipse cx="100" cy="408" rx="58" ry="9" fill="#000" opacity=".12"/>
+  <g id="g_legL" transform="translate(84 292)"><rect x="-11" y="0" width="22" height="88" rx="10" fill="#5E6675"/><path d="M-15 76 L13 76 L14 104 Q14 112 6 112 L-22 112 Q-28 112 -26 104 Z" fill="url(#g_boot)"/><rect x="-16" y="74" width="30" height="8" rx="4" fill="#D9C2A0"/></g>
+  <g id="g_legR" transform="translate(116 292)"><rect x="-11" y="0" width="22" height="88" rx="10" fill="#5E6675"/><path d="M-13 76 L15 76 L22 104 Q26 112 20 112 L-8 112 Q-14 112 -14 104 Z" fill="url(#g_boot)"/><rect x="-14" y="74" width="30" height="8" rx="4" fill="#D9C2A0"/></g>
+  <path d="M60 184 Q100 168 140 184 L150 290 Q100 300 50 290 Z" fill="url(#g_sw)"/>
+  <path d="M50 282 Q100 292 150 282 L151 304 Q100 314 49 304 Z" fill="#F1E3CC"/>
+  <path d="M50 282 Q100 292 150 282" stroke="#E2CFB1" stroke-width="2" fill="none"/>
+  <g stroke="#B5222A" stroke-width="2" opacity=".35"><path d="M70 200 V280"/><path d="M85 196 V284"/><path d="M115 196 V284"/><path d="M130 200 V280"/></g>
+  <rect x="88" y="158" width="24" height="24" rx="8" fill="url(#g_skin)"/>
+  <path d="M68 172 Q100 194 132 172 Q136 186 128 192 Q100 206 72 192 Q64 186 68 172Z" fill="#D9343C"/>
+  <path d="M112 190 L124 250 L108 252 L104 194Z" fill="#C42A32"/>
+  <g stroke="#F6B0B3" stroke-width="2"><path d="M110 248 v8"/><path d="M116 247 v8"/><path d="M122 246 v8"/></g>
+  ${arm(p,'L',62,194,'#E8373F','#B5222A','#F1E3CC')}
+  ${arm(p,'R',138,194,'#E8373F','#B5222A','#F1E3CC')}
+  <g id="g_head">
+   <circle cx="40" cy="114" r="13" fill="url(#g_skin)"/><circle cx="160" cy="114" r="13" fill="url(#g_skin)"/>
+   <g id="g_bunL"><circle cx="46" cy="42" r="26" fill="url(#g_hair)"/><path d="M30 32 Q46 22 62 34" stroke="#D9A04A" stroke-width="3" fill="none"/><path d="M28 48 Q46 40 64 50" stroke="#D9A04A" stroke-width="3" fill="none"/><ellipse cx="58" cy="58" rx="13" ry="10" fill="#D9343C"/></g>
+   <g id="g_bunR"><circle cx="154" cy="42" r="26" fill="url(#g_hair)"/><path d="M138 34 Q154 22 170 32" stroke="#D9A04A" stroke-width="3" fill="none"/><path d="M136 50 Q154 40 172 48" stroke="#D9A04A" stroke-width="3" fill="none"/><ellipse cx="142" cy="58" rx="13" ry="10" fill="#D9343C"/></g>
+   <ellipse cx="100" cy="106" rx="59" ry="63" fill="url(#g_skin)"/>
+   <path d="M41 112 Q34 40 100 36 Q166 40 159 112 Q150 72 120 64 Q100 84 70 70 Q50 78 41 112Z" fill="url(#g_hair)"/>
+   <path d="M60 60 Q100 44 140 60" stroke="#D9A04A" stroke-width="3" fill="none"/>
+   <path d="M42 108 Q38 140 48 160" stroke="url(#g_hair)" stroke-width="7" fill="none" stroke-linecap="round"/>
+   <path d="M158 108 Q164 140 152 162" stroke="url(#g_hair)" stroke-width="6" fill="none" stroke-linecap="round"/>
+   <path d="M64 88 Q76 82 88 88" stroke="#C99A55" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+   <path d="M112 88 Q124 82 136 88" stroke="#C99A55" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+   ${eyes(p,'#4F8FB0')}
+   <g stroke="#1b1b22" stroke-width="2.5" stroke-linecap="round"><path d="M64 98 l-5 -4"/><path d="M136 98 l5 -4"/></g>
+   <ellipse cx="100" cy="130" rx="6" ry="4.5" fill="#F29C8E"/>
+   <ellipse cx="64" cy="136" rx="12" ry="7" fill="#FF7E8A" opacity=".5"/><ellipse cx="136" cy="136" rx="12" ry="7" fill="#FF7E8A" opacity=".5"/>
+   <g fill="#E39B78" opacity=".6"><circle cx="58" cy="128" r="1.6"/><circle cx="64" cy="124" r="1.6"/><circle cx="142" cy="128" r="1.6"/><circle cx="136" cy="124" r="1.6"/></g>
+   <g id="g_mouth" transform="translate(100 146)"><path d="M-13 -2 Q0 3 13 -2 Q11 14 0 14 Q-11 14 -13 -2Z" fill="#8E2F2F"/><path d="M-7 9 Q0 5 7 9 Q5 13 0 13 Q-5 13 -7 9Z" fill="#E86D6D"/><path d="M-11 -1 Q0 3 11 -1 L10 2 Q0 5 -10 2Z" fill="#fff"/></g>
+  </g>
+ </g>
+</svg>`;}
+$('boy').innerHTML=boySVG(); $('girl').innerHTML=girlSVG();
+
+const SC=1.0; // character scale
+function pose(p,o){
+  const {x,y=880,s=SC,bob=0,tilt=0,armL=[12,-6],armR=[-12,6],talk=0,t=0,blinkOff=0,legL=0,legR=0,flipLook=0,squash=1}=o;
+  const el=$(p==='b'?'boy':'girl');
+  el.style.left=(x-100)+'px'; el.style.top=(y-420)+'px';
+  el.style.width='200px';el.style.height='420px';el.style.transformOrigin='100px 420px';
+  el.style.transform=`translateY(${-bob}px) scale(${s},${s*squash})`;
+  $(p+'_head').setAttribute('transform',`rotate(${tilt} 100 170)`);
+  $(p+'_upL').setAttribute('transform',`rotate(${armL[0]})`); $(p+'_foL').setAttribute('transform',`translate(0 50) rotate(${armL[1]})`);
+  $(p+'_upR').setAttribute('transform',`rotate(${armR[0]})`); $(p+'_foR').setAttribute('transform',`translate(0 50) rotate(${armR[1]})`);
+  const bl=((t+blinkOff)%3.3)<.13?.12:1;
+  $(p+'_eyes').setAttribute('transform',`translate(0 112) scale(1 ${bl}) translate(${flipLook} -112)`);
+  const m=talk?(.45+.55*Math.abs(Math.sin(t*14))):1;
+  $(p+'_mouth').setAttribute('transform',`translate(100 146) scale(1 ${m})`);
+  if(p==='g'){ $('g_legL').setAttribute('transform',`translate(84 292) rotate(${legL})`); $('g_legR').setAttribute('transform',`translate(116 292) rotate(${legR})`);
+    $('g_bunL').setAttribute('transform',`rotate(${Math.sin(t*6)*2} 46 60)`);$('g_bunR').setAttribute('transform',`rotate(${-Math.sin(t*6)*2} 154 60)`);}
+  else { $('b_shoeL').setAttribute('transform',`translate(${legL*.4} 0)`);$('b_shoeR').setAttribute('transform',`translate(${legR*.4} 0)`); }
+}
+function walk(t,speed=1){ // returns pose pieces for walking
+  const ph=t*7.5*speed;
+  return {bob:Math.abs(Math.sin(ph))*12, armL:[12+Math.sin(ph)*22,-10], armR:[-12+Math.sin(ph)*22,10], legL:Math.sin(ph)*16, legR:-Math.sin(ph)*16, tilt:Math.sin(ph)*3};
+}
+const WAVE=t=>[150,Math.sin(t*12)*28];
+const WAVER=t=>[-150,-Math.sin(t*12)*28];
+const HOLD=[-10,120]; // boy holding strap (right arm, inward)
+
+/* ================= DECOR ================= */
+for(let i=0;i<12;i++){const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('x',-4);r.setAttribute('y',-66);r.setAttribute('width',8);r.setAttribute('height',16);r.setAttribute('rx',4);r.setAttribute('fill','#FFC21A');r.setAttribute('transform',`rotate(${i*30})`);$('sunRays').appendChild(r);}
+const clouds=[];for(let i=0;i<4;i++){const c=document.createElement('div');c.className='abs';
+  c.innerHTML=`<svg width="150" height="70" viewBox="0 0 150 70"><g fill="#fff"><circle cx="40" cy="44" r="24"/><circle cx="72" cy="32" r="30"/><circle cx="106" cy="44" r="24"/><rect x="40" y="44" width="66" height="24" rx="12"/></g></svg>`;
+  $('clouds').appendChild(c);clouds.push({el:c,x:rnd()*600-60,y:110+i*70+rnd()*30,v:6+rnd()*10,s:.6+rnd()*.5});}
+// town houses (repeat for parallax)
+const HC=['#FFB4A2','#A0D8EF','#FFD98E','#B9E4A8','#D7C1F5'];
+let townHTML='';for(let i=0;i<10;i++){const x=i*150-150,h=150+(i*37)%70,c=HC[i%5];
+  townHTML+=`<svg class="abs" style="left:${x}px;top:${700-h-40}px" width="140" height="${h+40}" viewBox="0 0 140 ${h+40}">
+   <path d="M5 50 L70 5 L135 50Z" fill="${['#E2533B','#5B7CDB','#F2853B'][i%3]}"/><rect x="15" y="48" width="110" height="${h-8}" fill="${c}"/>
+   <rect x="32" y="70" width="28" height="28" rx="4" fill="#fff" opacity=".85"/><rect x="80" y="70" width="28" height="28" rx="4" fill="#fff" opacity=".85"/>
+   <rect x="56" y="${h-10}" width="28" height="${50}" rx="8" fill="#8A5A3B"/></svg>`;
+  if(i%2) townHTML+=`<svg class="abs" style="left:${x+120}px;top:600px" width="70" height="110" viewBox="0 0 70 110"><rect x="30" y="60" width="10" height="50" fill="#8A5A3B"/><circle cx="35" cy="45" r="32" fill="#5DBB63"/><circle cx="24" cy="36" r="12" fill="#7ED36B"/></svg>`;}
+$('town').innerHTML=townHTML;
+// flags
+const FC=['#FF6B6B','#FFD43B','#4DABF7','#69DB7C','#B197FC'];
+let fl='';for(let i=0;i<9;i++){const x=30+i*60,y=10+50*Math.sin(Math.PI*x/540)*0.75;fl+=`<path d="M${x-14} ${y} L${x+14} ${y} L${x} ${y+30}Z" fill="${FC[i%5]}"/>`;}
+$('flags').innerHTML=fl;
+// burst
+let bg='';for(let i=0;i<24;i++){bg+=`<path d="M0 0 L${700*Math.cos(i*Math.PI/12)} ${700*Math.sin(i*Math.PI/12)} L${700*Math.cos((i+.5)*Math.PI/12)} ${700*Math.sin((i+.5)*Math.PI/12)}Z" fill="#FFC93C"/>`;}
+$('burstG').innerHTML=bg;
+// confetti
+const conf=[];for(let i=0;i<70;i++){const d=document.createElement('div');d.className='abs';
+  d.style.cssText=`width:${8+rnd()*8}px;height:${12+rnd()*10}px;border-radius:3px;background:${FC[i%5]}`;
+  $('confetti').appendChild(d);conf.push({el:d,x:rnd()*540,d:rnd()*1.2,v:180+rnd()*200,sw:rnd()*6.28,r:rnd()*720});}
+// sparkle stars fx
+const stars=[];for(let i=0;i<10;i++){const d=document.createElement('div');d.className='abs';d.textContent='★';
+  d.style.cssText=`font-size:${26+rnd()*20}px;color:${FC[i%5]};text-shadow:0 2px 0 rgba(0,0,0,.1)`;$('fx').appendChild(d);
+  stars.push({el:d,a:i*36+rnd()*20,r:110+rnd()*60});}
+
+function bubble(id,t,a,b,x,y){
+  const el=$(id); const p=P(t,a,a+.35), q=P(t,b-.2,b);
+  el.style.display=(t>=a&&t<b)?'block':'none';
+  el.style.left=x+'px';el.style.top=y+'px';
+  el.style.transform=`scale(${eBack(p)*(1-eIn(q))}) translateY(${Math.sin(t*3)*3}px)`;
+}
+function titlePop(id,t,a,b){const el=$(id);const p=P(t,a,a+.5),q=b?P(t,b-.3,b):0;
+  el.style.display=(t>=a&&(!b||t<b))?'block':'none';
+  el.style.transform=`scale(${eBack(p)*(1-eIn(q))}) rotate(${Math.sin(t*2.5)*2}deg)`;}
+function starsAt(t,a,cx,cy){const lt=t-a;
+  stars.forEach((s,i)=>{const p=P(lt,i*.05,.9+i*.05);const vis=lt>0&&p<1;
+    s.el.style.display=vis?'block':'none';
+    const r=eOut(p)*s.r;s.el.style.left=(cx+Math.cos(s.a*Math.PI/180)*r-15)+'px';s.el.style.top=(cy+Math.sin(s.a*Math.PI/180)*r-15)+'px';
+    s.el.style.transform=`scale(${Math.sin(p*Math.PI)*1.2}) rotate(${p*180}deg)`;});}
+
+function render(t){
+  const sc=t<S[1]||(t>=S[1]&&t<S[2])?'street':t<S[3]?'classroom':'party';
+  $('street').style.display=sc==='street'?'block':'none';
+  $('classroom').style.display=sc==='classroom'?'block':'none';
+  $('party').style.display=sc==='party'?'block':'none';
+  $('school').style.display='none';
+  ['t1','t3','t5','t5b'].forEach(i=>$(i).style.display='none');
+  stars.forEach(s=>s.el.style.display='none');
+  conf.forEach(c=>c.el.style.display='none');
+  ['bub1','bub2','bub3','bub4','bub5'].forEach(i=>$(i).style.display='none');
+
+  // ambient
+  $('sun').style.transform=`translateY(${Math.sin(t*1.2)*5}px)`; $('sunRays').setAttribute('transform',`rotate(${t*20})`);
+  clouds.forEach(c=>{c.el.style.left=(((c.x+t*c.v)%700)-120)+'px';c.el.style.top=c.y+'px';c.el.style.transform=`scale(${c.s})`;});
+
+  let scroll=0;
+  /* ---------- SCENE A : street meet (0-10) ---------- */
+  if(t<S[1]){
+    $('town').style.transform='';$('tiles').style.transform='';
+    titlePop('t1',t,.3,4.2);
+    // boy walks in from right
+    const bx = t<3 ? lerp(680,340,eOut(P(t,.6,3.0))) : t<5.2 ? 340 : lerp(340,385,eIO(P(t,5.2,6.2)));
+    let bp={x:bx,t,blinkOff:0,armR:HOLD};
+    if(t<3.0){Object.assign(bp,walk(t));bp.armR=HOLD;}
+    if(t>3.0&&t<4.6){bp.armL=WAVE(t);bp.tilt=Math.sin(t*4)*4;bp.talk=t>3.2&&t<4.4;}
+    if(t>8.3&&t<9.8){bp.talk=t<9.4;bp.bob=Math.abs(Math.sin((t-8.3)*6))*18*(t<9.4?1:0);bp.armL=[40,-60];}
+    if(t>5.6&&t<8.3){bp.flipLook=-5;bp.tilt=-4;}
+    pose('b',bp);
+    bubble('bub1',t,3.2,4.8,bx-70,385);
+    // girl walks in from left
+    const gx = t<5 ? -200 : lerp(-160,150,eOut(P(t,5,6.9)));
+    let gp={x:gx,t,blinkOff:1.4};
+    if(t>=5&&t<6.9) Object.assign(gp,walk(t,1.05));
+    if(t>=6.9&&t<8.3){gp.armR=WAVER(t);gp.talk=t>7.0&&t<8.1;gp.tilt=Math.sin(t*4)*4;gp.flipLook=5;}
+    if(t>=8.3){gp.flipLook=5;gp.tilt=5;}
+    pose('g',gp);
+    bubble('bub2',t,7.0,8.4,Math.max(12,gx-90),385);
+    bubble('bub3',t,8.4,9.9,bx-120,385);
+  }
+  /* ---------- SCENE B : walking to school (10-15.5) ---------- */
+  else if(t<S[2]){
+    const lt=t-S[1];
+    // walk in place with parallax until school arrives
+    const stopAt=4.0;
+    const prog = lt<stopAt ? lt : stopAt + 0;
+    const sp = 110;
+    scroll = Math.min(lt,stopAt)*sp - (lt<stopAt?0:0);
+    // ease out the scroll near stop
+    const sEase = stopAt*sp*eOut(P(lt,0,stopAt))*0.9 + Math.min(lt,stopAt)*sp*0.1;
+    $('town').style.transform=`translateX(${(sEase*.6)%300}px)`;
+    $('tiles').style.transform=`translateX(${sEase%72}px)`;
+    $('school').style.display='block';
+    $('school').style.left=(lerp(-600,60,eOut(P(lt,0,stopAt))))+'px';
+    titlePop('t3',t,S[1]+.4,S[2]-.3);
+    const walking=lt<stopAt;
+    let bp={x:375,t,blinkOff:0,armR:HOLD}, gp={x:165,t,blinkOff:1.4};
+    if(walking){Object.assign(bp,walk(t));bp.armR=HOLD;Object.assign(gp,walk(t+.2));}
+    else{ // arrive: both look at school, jump once
+      const j=P(lt,stopAt+.2,stopAt+.8); const jb=Math.sin(j*Math.PI)*40;
+      bp.bob=jb; gp.bob=Math.sin(P(lt,stopAt+.35,stopAt+.95)*Math.PI)*40;
+      bp.armL=[150,-20]; gp.armR=[-150,20]; bp.flipLook=-4; gp.flipLook=-4;
+      bp.talk=0;
+    }
+    pose('b',bp);pose('g',gp);
+    // bell wiggle
+    $('schBell').setAttribute('transform',`rotate(${lt*120} 210 215)`);
+    if(lt>stopAt+.2) starsAt(t,S[1]+stopAt+.2,240,560);
+  }
+  /* ---------- SCENE C : classroom (15.5-21) ---------- */
+  else if(t<S[3]){
+    const lt=t-S[2];
+    const A='أ ب ت ث', N='1 2 3';
+    const na=Math.floor(clamp((lt-.4)/1.6)*A.length); $('boardA').textContent=A.slice(0,na);
+    const nn=Math.floor(clamp((lt-1.9)/1.0)*N.length); $('boardN').textContent=N.slice(0,nn);
+    $('chalkStar').style.transform=`scale(${eBack(P(lt,2.9,3.3))}) rotate(${lt*40}deg)`;
+    $('clkM').setAttribute('transform',`rotate(${lt*60})`);
+    const gIn=eOut(P(lt,0,.6));
+    let gp={x:150,y:905,t,blinkOff:1.4,s:SC*1.02}, bp={x:390,y:905,t,blinkOff:0,armR:HOLD,s:SC*1.02};
+    gp.bob=(1-gIn)*-200; bp.bob=(1-eOut(P(lt,.15,.75)))*-200;
+    if(lt>.9&&lt<2.4){gp.talk=lt<2.2;gp.armR=[-140,-30+Math.sin(lt*10)*10];gp.tilt=Math.sin(lt*4)*4;}
+    if(lt>2.6){bp.armL=[138,28+Math.sin(lt*14)*8];bp.bob=Math.abs(Math.sin(lt*7))*10;bp.talk=lt>2.7&&lt<4.0;bp.tilt=-5;}
+    if(lt>2.6){gp.flipLook=5;gp.tilt=5;}
+    pose('g',gp);pose('b',bp);
+    bubble('bub4',t,S[2]+.9,S[2]+2.5,40,425);
+    bubble('bub5',t,S[2]+2.7,S[2]+4.3,230,425);
+    if(lt>3.6) starsAt(t,S[2]+3.6,390,600);
+  }
+  /* ---------- SCENE D : celebration (21-25.5) ---------- */
+  else {
+    const lt=t-S[3];
+    $('burstG').setAttribute('transform',`rotate(${lt*15})`);
+    titlePop('t5',t,S[3]+.3); titlePop('t5b',t,S[3]+.9);
+    const jb=Math.abs(Math.sin(lt*5.2))*60, jg=Math.abs(Math.sin(lt*5.2+1.4))*60;
+    const sqb=1-0.08*Math.max(0,1-jb/12), sqg=1-0.08*Math.max(0,1-jg/12);
+    pose('b',{x:375,y:880,t,s:SC*1.05,bob:lt>.5?jb:0,squash:sqb,armL:[160,-10],armR:[-160,10],blinkOff:0});
+    pose('g',{x:165,y:880,t,s:SC*1.05,bob:lt>.6?jg:0,squash:sqg,armL:[160,-10],armR:[-160,10],blinkOff:1.4,legL:-10,legR:10});
+    conf.forEach(c=>{const lt2=lt-c.d; if(lt2<0)return; c.el.style.display='block';
+      c.el.style.left=(c.x+Math.sin(lt2*3+c.sw)*30)+'px'; c.el.style.top=(-30+lt2*c.v)+'px';
+      c.el.style.transform=`rotate(${c.r+lt2*300}deg) scaleX(${Math.cos(lt2*8+c.sw)})`;});
+  }
+
+  /* ---------- iris transitions ---------- */
+  const ir=$('iris'); ir.style.display='none';
+  for(const b of [S[1],S[2],S[3]]){
+    if(t>b-.45&&t<b+.45){ir.style.display='block';
+      const r = t<b ? lerp(620,0,eIn(P(t,b-.45,b))) : lerp(0,620,eOut(P(t,b,b+.45)));
+      $('irc').setAttribute('r',r);}
+  }
+  // the scene-A -> B boundary keeps same street but we still iris for rhythm
+  $('stage').style.opacity=Math.min(1,t/.25)*Math.min(1,(DURATION-t)/.5);
+}
+window.render=render;window.DURATION=DURATION;
+document.fonts.ready.then(()=>{window.READY=true;});
+if(!navigator.webdriver){const t0=performance.now();(function loop(){render(((performance.now()-t0)/1000)%DURATION);requestAnimationFrame(loop);})();}
+</script>
+</body>
+</html>
