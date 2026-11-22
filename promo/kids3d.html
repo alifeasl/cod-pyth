@@ -206,7 +206,7 @@ const boy=makeBoy(), girl=makeGirl();
 scene.add(boy.root,girl.root);
 
 /* pose: arm angles are {z: sideways raise (outward +), x: forward (+), elbow: bend forward (+)} */
-function setArm(a,side,{z=.12,x=0,elbow=.15}={}){a.sh.rotation.set(-x,0,-side*z);a.el.rotation.set(-elbow,0,0);}
+function setArm(a,side,{z=.12,x=0,elbow=.15}={}){a.sh.rotation.set(-x,0,side*z);a.el.rotation.set(-elbow,0,0);}
 function pose(c,o){
   const {x=0,z=0,ry=0,bob=0,tilt=0,nod=0,armL={},armR={},talk=false,t=0,blinkOff=0,legL=0,legR=0,look=0,squash=1,s=1}=o;
   c.root.position.set(x,0,z);c.root.rotation.y=ry;c.root.scale.setScalar(s);
@@ -266,7 +266,7 @@ const school=new THREE.Group();
 {const b=mesh(new RoundedBoxGeometry(3.4,2.3,1.6,5,.08),M(0xFF8A65,{roughness:.75}));b.position.y=1.15;school.add(b);
  const roof=mesh(new THREE.CylinderGeometry(0,2.1,1.0,4,1),M(0xE2533B,{roughness:.6}));roof.rotation.y=Math.PI/4;roof.position.y=2.8;sc(roof,1.25,1,.62);school.add(roof);
  const sign=canvasTex(512,128,(x)=>{x.fillStyle='#fff';x.beginPath();x.roundRect(4,4,504,120,40);x.fill();x.fillStyle='#E2533B';x.font='900 84px Cairo';x.textAlign='center';x.textBaseline='middle';x.direction='rtl';x.fillText('مدرستي',256,70);});
- const sp=mesh(new THREE.PlaneGeometry(1.4,.35),new THREE.MeshStandardMaterial({map:sign.tex,transparent:true,roughness:.5}));sp.position.set(0,2.62,.9);school.add(sp);school.userData.sign=sign;
+ const sp=mesh(new THREE.PlaneGeometry(1.4,.35),new THREE.MeshStandardMaterial({map:sign.tex,transparent:true,roughness:.5}));sp.position.set(0,2.42,1.7);school.add(sp);school.userData.sign=sign;
  const winM=M(0xBFE6FF,{roughness:.15,clearcoat:1});
  [[-1.15,1.45],[1.15,1.45],[-1.15,.6],[1.15,.6]].forEach(p=>{const w=mesh(new RoundedBoxGeometry(.6,.55,.06,2,.04),winM);w.position.set(p[0],p[1],.81);school.add(w);
    const f=mesh(new RoundedBoxGeometry(.7,.65,.04,2,.05),M(0xffffff,{roughness:.6}));f.position.set(p[0],p[1],.79);school.add(f);});
@@ -383,7 +383,7 @@ function render(t){
     let gp={x:-.62,t,blinkOff:1.4,ry:.15}, bp={x:.62,t,armR:HOLD,ry:-.15};
     gp.bob=(1-eOut(P(lt,0,.6)))*2.5; bp.bob=(1-eOut(P(lt,.15,.75)))*2.5;
     if(lt>.9&&lt<2.4){gp.talk=lt<2.2;gp.armR={z:1.2,x:.4,elbow:1.0+Math.sin(lt*10)*.2};gp.tilt=Math.sin(lt*4)*.06;}
-    if(lt>2.6){bp.armL={z:2.9,x:.15,elbow:.15+Math.sin(lt*14)*.12};bp.bob=Math.abs(Math.sin(lt*7))*.05;bp.talk=lt>2.7&&lt<4.0;bp.tilt=-.08;gp.look=.3;gp.ry=.4;}
+    if(lt>2.6){bp.armL={z:2.3,x:.35,elbow:.35+Math.sin(lt*14)*.15};bp.bob=Math.abs(Math.sin(lt*7))*.05;bp.talk=lt>2.7&&lt<4.0;bp.tilt=-.08;gp.look=.3;gp.ry=.4;}
     pose(girl,gp);pose(boy,bp);
     bubble('bub4',t,S[2]+.9,S[2]+2.5,girl);bubble('bub5',t,S[2]+2.7,S[2]+4.3,boy);
     if(lt>3.6) starsAt(t,S[2]+3.6,.62,2.3,.3);

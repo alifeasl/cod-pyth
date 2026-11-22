@@ -24,7 +24,8 @@ const TYPES={'.html':'text/html','.js':'text/javascript','.woff2':'font/woff2','
     for(const t of a.slice(2).map(Number)){await pg.evaluate(t=>render(t),t);await pg.screenshot({path:`${out}/t${t}.png`});}
   } else {
     const D=await pg.evaluate(()=>DURATION), N=Math.round(D*fps);
-    for(let i=0;i<N;i++){
+    const i0=+(process.env.START||0), i1=Math.min(N,+(process.env.END||N));
+    for(let i=i0;i<i1;i++){
       await pg.evaluate(t=>render(t),i/fps);
       await pg.screenshot({path:`${out}/f${String(i).padStart(4,'0')}.png`});
       if(i%60===0)console.log('frame',i,'/',N);
