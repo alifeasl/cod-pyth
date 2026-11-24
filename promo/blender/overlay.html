@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>Overlay</title>
+<style>
+@font-face{font-family:Cairo;src:url(../fonts/cairo-arabic.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0600-06FF,U+FB50-FDFF,U+FE70-FEFC,U+200C-200E;}
+@font-face{font-family:Cairo;src:url(../fonts/cairo-latin.woff2) format('woff2');font-weight:200 1000;unicode-range:U+0000-00FF,U+2000-206F;}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:540px;height:960px;overflow:hidden;background:transparent;font-family:Cairo}
+.title{position:absolute;width:100%;text-align:center;font-weight:900;color:#FF7A45;-webkit-text-stroke:12px #fff;paint-order:stroke fill;text-shadow:0 7px 0 rgba(0,0,0,.10);display:none}
+.bub{position:absolute;background:#fff;border-radius:26px;padding:10px 22px;font-weight:900;font-size:27px;color:#3D4466;white-space:nowrap;box-shadow:0 6px 0 rgba(0,0,0,.08);transform-origin:50% 100%;display:none}
+.bub:after{content:"";position:absolute;bottom:-16px;left:var(--tail,50%);margin-left:-10px;border:10px solid transparent;border-top:16px solid #fff}
+</style></head><body>
+<div class="bub" id="b1">صباح الخير!</div>
+<div class="bub" id="b2">صباح النور! تمشي ويايا؟</div>
+<div class="bub" id="b3">أكيد! يلا سوا</div>
+<div class="bub" id="b4">نتعلّم ونلعب سوا!</div>
+<div class="bub" id="b5">أنا أعرف الجواب!</div>
+<div class="title" id="t1" style="top:150px;font-size:60px">يلا عالمدرسة!</div>
+<div class="title" id="t2" style="top:150px;font-size:46px">المدرسة بيتنا الثاني</div>
+<div class="title" id="t3" style="top:150px;font-size:58px;line-height:1.3">يوم دراسي<br>سعيد!</div>
+<div class="title" id="t4" style="top:315px;font-size:32px;color:#8A72FF">بالتوفيق يا أبطال</div>
+<svg id="iris" style="position:absolute;left:0;top:0;display:none" width="540" height="960"><defs><mask id="m"><rect width="540" height="960" fill="#fff"/><circle id="ic" cx="270" cy="560" r="600" fill="#000"/></mask></defs><rect width="540" height="960" fill="#9C8BFF" mask="url(#m)"/></svg>
+<script>
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), P=(t,a,b)=>clamp((t-a)/(b-a));
+const eOut=x=>1-Math.pow(1-x,3), eIn=x=>x*x*x, lerp=(a,b,x)=>a+(b-a)*x;
+const eBack=x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2);};
+let TR=null;
+fetch('overlay_track.json').then(r=>r.json()).then(j=>{TR=j;window.DURATION=j.dur;window.FPS=j.fps;return document.fonts.ready;}).then(()=>{window.READY=true;});
+function bubble(id,t,a,b,who){const el=$(id);const vis=t>=a&&t<b;el.style.display=vis?'block':'none';if(!vis)return;
+  const f=Math.min(TR.frames.length-1,Math.round(t*TR.fps));const p=TR.frames[f][who];const x=p[0]*540,y=p[1]*960;
+  const w=el.offsetWidth;const left=clamp(x-w/2,12,540-12-w);el.style.left=left+'px';el.style.top=(y-62)+'px';
+  el.style.setProperty('--tail',clamp(x-left,30,w-30)+'px');
+  const s=eBack(P(t,a,a+.35))*(1-eIn(P(t,b-.2,b)));el.style.transform=`scale(${s}) translateY(${Math.sin(t*3)*3}px)`;}
+function title(id,t,a,b){const el=$(id);const vis=t>=a&&(!b||t<b);el.style.display=vis?'block':'none';if(!vis)return;
+  el.style.transform=`scale(${eBack(P(t,a,a+.5))*(b?1-eIn(P(t,b-.3,b)):1)}) rotate(${Math.sin(t*2.5)*2}deg)`;}
+window.render=t=>{
+  title('t1',t,.3,3.5); title('t2',t,8.4,12.2); title('t3',t,17.3); title('t4',t,17.9);
+  bubble('b1',t,2.7,4.1,'boy'); bubble('b2',t,5.3,6.4,'girl'); bubble('b3',t,6.4,7.8,'boy');
+  bubble('b4',t,13.4,14.9,'girl'); bubble('b5',t,15.2,16.7,'boy');
+  const ir=$('iris');ir.style.display='none';
+  for(const b of TR.scenes.slice(1,4)){if(t>b-.4&&t<b+.4){ir.style.display='block';
+    $('ic').setAttribute('r',t<b?lerp(620,0,eIn(P(t,b-.4,b))):lerp(0,620,eOut(P(t,b,b+.4))));}}
+};
+</script></body></html>
